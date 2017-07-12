@@ -1,0 +1,11 @@
+package: github.com/liuxu623/etcd2consul
+import:
+- package: github.com/coreos/etcd
+  version: ^3.2.1
+  subpackages:
+  - client
+- package: github.com/hashicorp/consul
+  version: ^0.8.5
+  subpackages:
+  - api
+- package: github.com/hashicorp/go-cleanhttp
