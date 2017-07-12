@@ -1,0 +1,21 @@
+sudo: false
+language: go
+go:
+- 1.8.x
+install:
+- go get github.com/Masterminds/glide
+before_script:
+- glide install
+script:
+- go build -o bin/etcd2consul main.go
+after_success:
+- xz -9k bin/etcd2consul
+deploy:
+  provider: releases
+  api_key:
+    secure: moPthU4JOAiIYj3hWhVoj1l1RW/j+tCWg7/OFHT+QN5IYjqScOJuO1VRw7RbUc1lRoMcCyupcdtVRINUk4zwTI383egZsfMUFYPa8QrelVPPKZWRqPdNehII287CqWgQvLKHppgLEDhnMrC8W4Odw52BiPl/p6id1Ygc+rJkZ0qTjXKTtMoz/CbNP0kjDnl1I9rp667CGADrMnJDnpBuhC3f7RMxEeFxYBFSeaqn4EA6h17AijVP9HOjCWY6B1zlpNzMZLorgd+GbLZWIR9BFFnAHT+o9QpyayNPspHl8nrnxAFi1zdjOfflkD1trC4OJMJnPaWQd+pDp2c/WJwD4Meuyb9okr7K2PzpH3ccaIYohlafp8nuMKPNFRh6taE7q8Zvjml2NvmaqdRmJvGfwrwciQqoha//NyMZoJZRakR9QV5AMDJhfGXXLLcw92GcCDfXt1qSekn3pDpZmSf0BpZfMwwTc1b9GXaUJOUierAsfsKEkyO/aTHJ2l+j5ir0UNWmXLCIb/ktlFnFucwQUpAndOuiI6YHaBwtKMWx9WbjFFZWl8Gqb1/iWAE/I3AojjdxrflLiODdsCqZnbE/u0u0YWekutZ7ZyBoUpnO5fDKd2esOFatYyDdiCWQNeXif3QszfAGJkiJRaVzfeQ4gvKsnd03x9by7l7KXQA/+/4=
+  file:
+  - bin/etcd2consul
+  - bin/etcd2consul.xz
+  on:
+    tags: true
